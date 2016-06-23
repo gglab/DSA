@@ -22,6 +22,30 @@ public class DSA {
     private final int primeCenterie = 20;
     //params
     private BigInteger q;
+
+    public BigInteger getQ() {
+        return q;
+    }
+
+    public void setQ(BigInteger q) {
+        this.q = q;
+    }
+
+    public BigInteger getP() {
+        return p;
+    }
+
+    public void setP(BigInteger p) {
+        this.p = p;
+    }
+
+    public BigInteger getG() {
+        return g;
+    }
+
+    public void setG(BigInteger g) {
+        this.g = g;
+    }
     private BigInteger p;
     private BigInteger g;
 
@@ -41,11 +65,10 @@ public class DSA {
     public BigInteger getPublicKeyY() {
         return y;
     }
-
-    public BigInteger getPrivateKeyX() {
-        return x;
+    
+    public void setPublicKeyY(BigInteger y) {
+        this.y = y;
     }
-
 
     public HashMap<String, BigInteger> sign(final byte[] data) {
         HashMap<String, BigInteger> result = new HashMap<String, BigInteger>();
@@ -118,9 +141,13 @@ public class DSA {
         return s;
     }
 
-    public boolean verify(final byte[] data, final HashMap<String, BigInteger> signature) {
+    public static boolean verify(final byte[] data, final HashMap<String, BigInteger> signature) {
         BigInteger r = signature.get("r");
         BigInteger s = signature.get("s");
+        BigInteger q = signature.get("q");
+        BigInteger p = signature.get("p");
+        BigInteger g = signature.get("g");
+        BigInteger y = signature.get("y");
         if (r.compareTo(BigInteger.ZERO) <= 0 || r.compareTo(q) >= 0) {
             return false;
         }
